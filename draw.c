@@ -31,12 +31,12 @@ void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 		(sin(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) + 500);
 	start.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) +
 		(sin(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) + 500)
-			+ fdf->step / 5 * fdf->mat[start.y][start.x];
+			+ fdf->step / 33 * fdf->mat[start.y][start.x];
 	end.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) -
 		(sin(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) + 500);
 	end.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) +
 		(sin(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) + 500)
-		+ fdf->step / 5 * fdf->mat[end.y][end.x];
+		+ fdf->step / 33 * fdf->mat[end.y][end.x];
 	find_dir(fdf, start, end);
 }
 
