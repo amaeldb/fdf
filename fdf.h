@@ -3,6 +3,7 @@
 
 // # include "mlx/mlx.h"
 # include <fcntl.h>
+# include <math.h>
 # include "get_next_line/get_next_line.h"
 
 typedef struct s_vect{
@@ -15,6 +16,7 @@ typedef struct s_fdf{
 	t_vect	start;
 	t_vect	dim;
 	int		**mat;
+	double	ang;
 }	t_fdf;
 
 int		check_arg(char *argv, t_fdf *fdf);
