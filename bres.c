@@ -4,7 +4,7 @@
 
 void	place_pixel(int x, int y)
 {
-	//printf("(%d,%d) ", x, y);
+	printf("(%d,%d) ", x, y);
 }
 
 void	bres_ur(t_fdf *fdf, t_vect start, t_vect end)
@@ -28,6 +28,7 @@ void	bres_ur(t_fdf *fdf, t_vect start, t_vect end)
 			pk += 2 * delt.y;
 		}	
 	}
+	printf("ur");
 }
 
 void	bres_uu(t_fdf *fdf, t_vect start, t_vect end)
@@ -51,6 +52,7 @@ void	bres_uu(t_fdf *fdf, t_vect start, t_vect end)
 			pk += 2 * delt.x;
 		}
 	}
+	printf("uu");
 }
 
 void	bres_dr(t_fdf *fdf, t_vect start, t_vect end)
@@ -74,6 +76,7 @@ void	bres_dr(t_fdf *fdf, t_vect start, t_vect end)
 			pk += 2 * delt.y;
 		}
 	}
+	printf("dr");
 }
 
 void	bres_dd(t_fdf *fdf, t_vect start, t_vect end)
@@ -86,7 +89,8 @@ void	bres_dd(t_fdf *fdf, t_vect start, t_vect end)
 	pk = 2 * delt.x + delt.y;
 	while (start.x <= end.x && start.y >= end.y)
 	{
-		if (pk < 0)
+		// printf("pk = %d\n", pk);
+		if (pk > 0)
 		{
 			place_pixel(start.x++, start.y--);
 			pk += 2 * delt.x + 2 * delt.y;
@@ -97,4 +101,5 @@ void	bres_dd(t_fdf *fdf, t_vect start, t_vect end)
 			pk += 2 * delt.x;
 		}
 	}
+	printf("dd");
 }

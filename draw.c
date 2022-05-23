@@ -9,21 +9,22 @@ void	find_dir(t_fdf *fdf, t_vect start, t_vect end)
 
 	delt_x = end.x - start.x;
 	delt_y = end.y - start.y;
-	if (delt_x >= delt_y && delt_x > -1 && delt_y > -1)
+	//printf("start (%d,%d), end (%d,%d), dx = %d, dy = %d\n", start.x, start.y, end.x, end.y, delt_x, delt_y);
+	if (delt_x >= delt_y && delt_x > -1 && delt_y > -1) // OK
 		bres_ur(fdf, start, end);
-	else if (delt_x <= delt_y && delt_x < 1 && delt_y < 1)
+	else if (delt_x <= delt_y && delt_x < 1 && delt_y < 1) // OK
 		bres_ur(fdf, end, start);
-	else if (delt_x < delt_y && delt_x > -1 && delt_y > -1)
+	else if (delt_x < delt_y && delt_x > -1 && delt_y > -1) // OK
 		bres_uu(fdf, start, end);
-	else if (delt_x > delt_y && delt_x < 1 && delt_y < 1)
+	else if (delt_x > delt_y && delt_x < 1 && delt_y < 1) // OK
 		bres_uu(fdf, end, start);
-	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1)
+	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1 && delt_x > (delt_y * -1)) // OK
 		bres_dr(fdf, start, end);
-	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1)
+	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1 && (delt_x * -1) > delt_y) // OK
 		bres_dr(fdf, end, start);
-	else if (delt_x < delt_y && delt_x > -1 && delt_y < 1)
+	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1 && (delt_y * -1) > delt_x) // 
 		bres_dd(fdf, start, end);
-	else if (delt_x > delt_y && delt_x < 1 && delt_y > -1)
+	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1) // OK
 		bres_dd(fdf, end, start);
 }
 
@@ -44,7 +45,7 @@ void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 	n_end.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500)) +
 		(sin(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) + 500) + z.y;
 	find_dir(fdf, n_start, n_end);
-	//printf("\n");
+	printf("\n");
 }
 
 void	draw(t_fdf *fdf)
