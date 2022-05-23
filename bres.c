@@ -15,7 +15,7 @@ void	bres_ur(t_fdf *fdf, t_vect start, t_vect end)
 	delt.x = end.x - start.x;
 	delt.y = end.y - start.y;
 	pk = 2 * delt.y - delt.x;
-	while (start.x != end.x && start.y != end.y)
+	while (start.x <= end.x && start.y <= end.y)
 	{
 		if (pk > 0)
 		{
@@ -38,7 +38,7 @@ void	bres_uu(t_fdf *fdf, t_vect start, t_vect end)
 	delt.x = end.x - start.x;
 	delt.y = end.y - start.y;
 	pk = 2 * delt.x - delt.y;
-	while (start.x != end.x && start.y != end.y)
+	while (start.x <= end.x && start.y <= end.y)
 	{
 		if (pk > 0)
 		{
@@ -61,7 +61,7 @@ void	bres_dr(t_fdf *fdf, t_vect start, t_vect end)
 	delt.x = end.x - start.x;
 	delt.y = end.y - start.y;
 	pk = 2 * delt.y - delt.x;
-	while (start.x != end.x && start.y != end.y)
+	while (start.x <= end.x && start.y >= end.y)
 	{
 		if (pk < 0)
 		{
@@ -84,7 +84,7 @@ void	bres_dd(t_fdf *fdf, t_vect start, t_vect end)
 	delt.x = end.x - start.x;
 	delt.y = end.y - start.y;
 	pk = 2 * delt.x - delt.y;
-	while (start.x != end.x && start.y != end.y)
+	while (start.x <= end.x && start.y >= end.y)
 	{
 		if (pk < 0)
 		{
