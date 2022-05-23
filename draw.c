@@ -1,5 +1,7 @@
 #include "fdf.h"
 
+#include <stdio.h>
+
 void	find_dir(t_fdf *fdf, t_vect start, t_vect end)
 {
 	int	delt_x;
@@ -27,17 +29,22 @@ void	find_dir(t_fdf *fdf, t_vect start, t_vect end)
 
 void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 {
-	start.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) -
+	t_vect	z;
+	t_vect	n_start;
+	t_vect	n_end;
+
+	z.x = fdf->step / 33 * fdf->mat[start.y][start.x];
+	z.y = fdf->step / 33 * fdf->mat[end.y][end.x];
+	n_start.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) -
 		(sin(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) + 500);
-	start.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) +
-		(sin(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) + 500)
-			+ fdf->step / 33 * fdf->mat[start.y][start.x];
-	end.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) -
-		(sin(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) + 500);
-	end.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) +
-		(sin(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) + 500)
-		+ fdf->step / 33 * fdf->mat[end.y][end.x];
-	find_dir(fdf, start, end);
+	n_start.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) +
+		(sin(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) + 500) + z.x;
+	n_end.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) -
+		(sin(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500)) + 500);
+	n_end.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500)) +
+		(sin(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) + 500) + z.y;
+	find_dir(fdf, n_start, n_end);
+	//printf("\n");
 }
 
 void	draw(t_fdf *fdf)
