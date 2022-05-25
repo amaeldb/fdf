@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/25 16:47:58 by ade-beta          #+#    #+#             */
+/*   Updated: 2022/05/25 16:48:09 by ade-beta         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
-// # include "mlx/mlx.h"
+// # include "mlx_linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include "get_next_line/get_next_line.h"

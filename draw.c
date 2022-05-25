@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/25 16:47:52 by ade-beta          #+#    #+#             */
+/*   Updated: 2022/05/25 17:01:07 by ade-beta         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 #include <stdio.h>
@@ -9,7 +21,6 @@ void	find_dir(t_fdf *fdf, t_vect start, t_vect end)
 
 	delt_x = end.x - start.x;
 	delt_y = end.y - start.y;
-	//printf("start (%d,%d), end (%d,%d), dx = %d, dy = %d\n", start.x, start.y, end.x, end.y, delt_x, delt_y);
 	if (delt_x >= delt_y && delt_x > -1 && delt_y > -1) // OK
 		bres_ur(fdf, start, end);
 	else if (delt_x <= delt_y && delt_x < 1 && delt_y < 1) // OK
@@ -18,11 +29,14 @@ void	find_dir(t_fdf *fdf, t_vect start, t_vect end)
 		bres_uu(fdf, start, end);
 	else if (delt_x > delt_y && delt_x < 1 && delt_y < 1) // OK
 		bres_uu(fdf, end, start);
-	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1 && delt_x > (delt_y * -1)) // OK
+	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1
+		&& delt_x > (delt_y * -1)) // OK
 		bres_dr(fdf, start, end);
-	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1 && (delt_x * -1) > delt_y) // OK
+	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1
+		&& (delt_x * -1) > delt_y) // OK
 		bres_dr(fdf, end, start);
-	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1 && (delt_y * -1) > delt_x) // 
+	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1
+		&& (delt_y * -1) > delt_x) // 
 		bres_dd(fdf, start, end);
 	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1) // OK
 		bres_dd(fdf, end, start);
@@ -36,16 +50,19 @@ void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 
 	z.x = fdf->step / 33 * fdf->mat[start.y][start.x];
 	z.y = fdf->step / 33 * fdf->mat[end.y][end.x];
-	n_start.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) -
-		(sin(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) + 500);
-	n_start.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500)) +
-		(sin(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500)) + 500) + z.x;
-	n_end.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) -
-		(sin(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500)) + 500);
-	n_end.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500)) +
-		(sin(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) + 500) + z.y;
+	n_start.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500
+					)) - (sin(fdf->ang) * (fdf->start.y + fdf->step * start.y
+					- 500)) + 500);
+	n_start.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500
+					)) + (sin(fdf->ang) * (fdf->start.x + fdf->step * start.x
+					- 500)) + 500) + z.x;
+	n_end.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500))
+			- (sin(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500))
+			+ 500);
+	n_end.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500))
+			+ (sin(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) + 500)
+		+ z.y;
 	find_dir(fdf, n_start, n_end);
-	printf("\n");
 }
 
 void	draw(t_fdf *fdf)
