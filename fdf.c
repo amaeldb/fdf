@@ -63,6 +63,7 @@ int	main(int argc, char **argv)
 		ft_printf("\n");
 	}
 
+	ft_printf("min_z = %d\n", fdf->min_z);
 	i = -1;
 	while (++i < fdf->dim.y)
 		free(fdf->mat[i]);

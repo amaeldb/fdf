@@ -14,42 +14,44 @@
 
 #include <stdio.h>
 
-void	find_dir(t_fdf *fdf, t_vect start, t_vect end)
+void	find_dir(t_fdf *fdf, t_vect_three start, t_vect_three end)
 {
 	int	delt_x;
 	int	delt_y;
 
 	delt_x = end.x - start.x;
 	delt_y = end.y - start.y;
-	if (delt_x >= delt_y && delt_x > -1 && delt_y > -1) // OK
+	if (delt_x >= delt_y && delt_x > -1 && delt_y > -1)
 		bres_ur(fdf, start, end);
-	else if (delt_x <= delt_y && delt_x < 1 && delt_y < 1) // OK
+	else if (delt_x <= delt_y && delt_x < 1 && delt_y < 1)
 		bres_ur(fdf, end, start);
-	else if (delt_x < delt_y && delt_x > -1 && delt_y > -1) // OK
+	else if (delt_x < delt_y && delt_x > -1 && delt_y > -1)
 		bres_uu(fdf, start, end);
-	else if (delt_x > delt_y && delt_x < 1 && delt_y < 1) // OK
+	else if (delt_x > delt_y && delt_x < 1 && delt_y < 1)
 		bres_uu(fdf, end, start);
 	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1
-		&& delt_x > (delt_y * -1)) // OK
+		&& delt_x > (delt_y * -1))
 		bres_dr(fdf, start, end);
 	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1
-		&& (delt_x * -1) > delt_y) // OK
+		&& (delt_x * -1) > delt_y)
 		bres_dr(fdf, end, start);
 	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1
-		&& (delt_y * -1) > delt_x) // 
+		&& (delt_y * -1) > delt_x)
 		bres_dd(fdf, start, end);
-	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1) // OK
+	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1)
 		bres_dd(fdf, end, start);
 }
 
 void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 {
-	t_vect	z;
-	t_vect	n_start;
-	t_vect	n_end;
+	t_vect			z;
+	t_vect_three	n_start;
+	t_vect_three	n_end;
 
 	z.x = fdf->step / 33 * fdf->mat[start.y][start.x];
 	z.y = fdf->step / 33 * fdf->mat[end.y][end.x];
+	n_start.z = fdf->mat[start.y][start.x];
+	n_end.z = fdf->mat[end.y][end.x];
 	n_start.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500
 					)) - (sin(fdf->ang) * (fdf->start.y + fdf->step * start.y
 					- 500)) + 500);

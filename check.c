@@ -41,9 +41,12 @@ int	set_mat(char *str, t_fdf *fdf, int y, int x)
 
 	i = -1;
 	while (str[++i])
-		if (!ft_isdigit(str[i]) && str[i] != '\n')
+		if (((i == 0 && str[i] != '-') && !ft_isdigit(str[i]))
+			&& str[i] != '\n')
 			return (1);
 	fdf->mat[y][x] = ft_atoi((const char *)str);
+	if (fdf->mat[y][x] < fdf->min_z)
+		fdf->min_z = fdf->mat[y][x];
 	return (0);
 }
 
@@ -82,6 +85,7 @@ int	check_too(int fd, t_fdf *fdf)
 	temp = ft_split(get_next_line(fd), ' ');
 	if (!temp)
 		return (1);
+	fdf->min_z = ft_atoi((const char *)temp[0]);
 	fdf->dim.x = count_lines(0, temp);
 	y = -1;
 	while (temp)

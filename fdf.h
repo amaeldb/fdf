@@ -23,15 +23,28 @@ typedef struct s_vect{
 	int	y;
 }	t_vect;
 
+typedef struct s_vect_three{
+	int	x;
+	int	y;
+	int	z;
+}	t_vect_three;
+
 typedef struct s_fdf{
 	int		step;
 	t_vect	start;
 	t_vect	dim;
 	int		**mat;
 	double	ang;
+	int		min_z;
+	int		col_step;
 }	t_fdf;
 
 int		check_arg(char *argv, t_fdf *fdf);
+void	draw(t_fdf *fdf);
+void	bres_ur(t_fdf *fdf, t_vect_three start, t_vect_three end);
+void	bres_uu(t_fdf *fdf, t_vect_three start, t_vect_three end);
+void	bres_dr(t_fdf *fdf, t_vect_three start, t_vect_three end);
+void	bres_dd(t_fdf *fdf, t_vect_three start, t_vect_three end);
 
 void	*ft_calloc(size_t nmemb, size_t size);
 char	**ft_split(const char *s, char c);
