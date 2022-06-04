@@ -47,6 +47,8 @@ int	set_mat(char *str, t_fdf *fdf, int y, int x)
 	fdf->mat[y][x] = ft_atoi((const char *)str);
 	if (fdf->mat[y][x] < fdf->min_z)
 		fdf->min_z = fdf->mat[y][x];
+	else if (fdf->mat[y][x] > fdf->max_z)
+		fdf->max_z = fdf->mat[y][x];
 	return (0);
 }
 

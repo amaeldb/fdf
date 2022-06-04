@@ -36,6 +36,7 @@ typedef struct s_fdf{
 	int		**mat;
 	double	ang;
 	int		min_z;
+	int		max_z;
 	int		col_step;
 }	t_fdf;
 

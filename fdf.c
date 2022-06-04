@@ -14,16 +14,8 @@
 
 #include <stdio.h>
 
-int	main(int argc, char **argv)
+void	set_fdf(t_fdf *fdf)
 {
-	t_fdf	*fdf;
-
-	fdf = ft_calloc(1, sizeof(t_fdf));
-	if (argc != 2 || check_arg(argv[1], fdf))
-	{
-		free(fdf);
-		return (0);
-	}	
 	if (fdf->dim.x > fdf->dim.y)
 	{
 		fdf->step = 700 / (fdf->dim.x - 1);
@@ -37,6 +29,21 @@ int	main(int argc, char **argv)
 			/ 2, 150};
 	}
 	fdf->ang = 15 * M_PI / 180;
+	fdf->col_step = 255 / (fdf->max_z - fdf->min_z);
+}
+
+int	main(int argc, char **argv)
+{
+	t_fdf	*fdf;
+
+	fdf = ft_calloc(1, sizeof(t_fdf));
+	if (argc != 2 || check_arg(argv[1], fdf))
+	{
+		free(fdf);
+		return (0);
+	}	
+	set_fdf(fdf);
+	draw(fdf);
 
 
 
@@ -63,7 +70,7 @@ int	main(int argc, char **argv)
 		ft_printf("\n");
 	}
 
-	ft_printf("min_z = %d\n", fdf->min_z);
+	ft_printf("min_z = %d, max_z = %d, col_step = %d\n", fdf->min_z, fdf->max_z, fdf->col_step);
 	i = -1;
 	while (++i < fdf->dim.y)
 		free(fdf->mat[i]);
