@@ -14,6 +14,42 @@
 
 #include <stdio.h>
 
+int	frexit(t_fdf *fdf)
+{
+	if (fdf->img)
+		mlx_destroy_image(fdf->mlx, fdf->img);
+	if (fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->mlx)
+		mlx_destroy_display(fdf->mlx);
+	exit(0);
+}
+
+void	modif(int key, t_fdf *fdf)
+{
+	if (key == 0xff1b)
+		frexit(fdf);
+	else if (key == 0xff26)
+		fdf->step += fdf->step / 10;
+	else if (key == 0xff28)
+		fdf->step -= fdf->step / 10;
+	else if (key == 0xff25)
+		fdf->ang -= 15 * M_PI / 180;
+	else if (key == 0xff27)
+		fdf->ang += 15 * M_PI / 180;
+	else if (key == 0xff41)
+		fdf->start.x -= 50;
+	else if (key == 0xff44)
+		fdf->start.x += 50;
+	else if (key == 0xff57)
+		fdf->start.y += 50;
+	else if (key == 0xff53)
+		fdf->start.x -= 50;
+	if (fdf->ang > 6.1 || fdf->ang < -6.1)
+		fdf->ang = 0;
+	draw(fdf);
+}
+
 void	set_fdf(t_fdf *fdf, char *str)
 {
 	if (fdf->dim.x > fdf->dim.y)
@@ -32,9 +68,6 @@ void	set_fdf(t_fdf *fdf, char *str)
 	fdf->col_step = 255 / (fdf->max_z - fdf->min_z);
 	fdf->mlx = mlx_init();
 	fdf->win = mlx_new_window(fdf->mlx, 1000, 1000, str);
-	fdf->img = mlx_new_image(fdf->mlx, 1000, 1000);
-	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_pp,
-				&fdf->line_len, &fdf->endian);
 }
 
 int	main(int argc, char **argv)
@@ -50,20 +83,7 @@ int	main(int argc, char **argv)
 	set_fdf(fdf, argv[1]);
 	draw(fdf);
 
-
-
-	int x = -1, y = -1;
-	while (++y < fdf->dim.y)
-	{
-		x = -1;
-		while (++x < fdf->dim.x)
-			printf("(%d, %d) ", (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * x - 500)) -
-			(sin(fdf->ang) * (fdf->start.y + fdf->step * y - 500)) + 500), 
-			(int)((cos(fdf->ang) * (fdf->start.y + fdf->step * y - 500)) +
-			(sin(fdf->ang) * (fdf->start.x + fdf->step * x - 500)) + 500)
-			+ fdf->step / 33 * fdf->mat[y][x]);
-		printf("\n");
-	}
+	// TESTS
 
 	int i = -1, j = -1;
 

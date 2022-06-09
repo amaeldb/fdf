@@ -73,6 +73,10 @@ void	draw(t_fdf *fdf)
 	int	y;
 
 	y = -1;
+
+	fdf->img = mlx_new_image(fdf->mlx, 1000, 1000);
+	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_pp,
+				&fdf->line_len, &fdf->endian);
 	while (++y < fdf->dim.y)
 	{
 		x = -1;
@@ -85,4 +89,5 @@ void	draw(t_fdf *fdf)
 		}
 	}
 	mlx_put_img_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
+	mlx_destroy_image(fdf->mlx, fdf->img);
 }
