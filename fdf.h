@@ -38,6 +38,13 @@ typedef struct s_fdf{
 	int		min_z;
 	int		max_z;
 	int		col_step;
+	void	*img;
+	char	*addr;
+	int		bits_pp;
+	int		line_len;
+	int		endian;
+	void	*mlx;
+	void	*win;
 }	t_fdf;
 
 int		check_arg(char *argv, t_fdf *fdf);

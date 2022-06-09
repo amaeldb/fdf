@@ -13,11 +13,19 @@
 #include "fdf.h"
 #include <stdio.h>
 
-void	place_pixel(int x, int y, t_vect_three end, t_vect col)
+void	place_pixel(t_fdf *fdf, t_vect pos, t_vect_three end, t_vect col)
 {
-	col.x += (float)col.y * ((float)(y - end.x) / (float)(end.y - end.x));
+	char	*point;
+
+	if (pos.x > -1 && pos.y > -1)
+	{
+		col.x += (float)col.y * ((float)(pos.y - end.x) / (float)(end.y - end.x));
+		point = fdf->addr + ((1000 - pos.y * fdf->line_len)
+				+ (pos.x * fdf->bits_pp / 8));
+		*(unsigned int *)point = col.x + 65535;
+	}
 	//printf("%d / %d = %f\n", (y - end.x), (end.y - end.x), ((float)(y - end.x) / (float)(end.y - end.x)));
-	printf("(%d,%d, %d) ", x, y, col.x);
+	//printf("(%d,%d,%X) ", x, y, col.x * 65536 + 0x0000FFFF);
 }
 
 void	bres_ur(t_fdf *fdf, t_vect_three start, t_vect_three end)
@@ -36,15 +44,16 @@ void	bres_ur(t_fdf *fdf, t_vect_three start, t_vect_three end)
 	{
 		if (pk > 0)
 		{
-			place_pixel(start.x++, start.y++, end, col);
+			place_pixel(fdf, (t_vect){start.x++, start.y++}, end, col);
 			pk += 2 * delt.y - 2 * delt.x;
 		}
 		else
 		{
-			place_pixel(start.x++, start.y, end, col);
+			place_pixel(fdf, (t_vect){start.x++, start.y}, end, col);
 			pk += 2 * delt.y;
 		}	
 	}
+	printf("\n");
 }
 
 void	bres_uu(t_fdf *fdf, t_vect_three start, t_vect_three end)
@@ -63,15 +72,16 @@ void	bres_uu(t_fdf *fdf, t_vect_three start, t_vect_three end)
 	{
 		if (pk > 0)
 		{
-			place_pixel(start.x++, start.y++, end, col);
+			place_pixel(fdf, (t_vect){start.x++, start.y++}, end, col);
 			pk += 2 * delt.x - 2 * delt.y;
 		}
 		else
 		{
-			place_pixel(start.x, start.y++, end, col);
+			place_pixel(fdf, (t_vect){start.x, start.y++}, end, col);
 			pk += 2 * delt.x;
 		}
 	}
+	printf("\n");
 }
 
 void	bres_dr(t_fdf *fdf, t_vect_three start, t_vect_three end)
@@ -90,15 +100,16 @@ void	bres_dr(t_fdf *fdf, t_vect_three start, t_vect_three end)
 	{
 		if (pk < 0)
 		{
-			place_pixel(start.x++, start.y--, end, col);
+			place_pixel(fdf, (t_vect){start.x++, start.y--}, end, col);
 			pk += 2 * delt.y + 2 * delt.x;
 		}
 		else
 		{
-			place_pixel(start.x++, start.y, end, col);
+			place_pixel(fdf, (t_vect){start.x++, start.y}, end, col);
 			pk += 2 * delt.y;
 		}
 	}
+	printf("\n");
 }
 
 void	bres_dd(t_fdf *fdf, t_vect_three start, t_vect_three end)
@@ -117,13 +128,14 @@ void	bres_dd(t_fdf *fdf, t_vect_three start, t_vect_three end)
 	{
 		if (pk > 0)
 		{
-			place_pixel(start.x++, start.y--, end, col);
+			place_pixel(fdf, (t_vect){start.x++, start.y--}, end, col);
 			pk += 2 * delt.x + 2 * delt.y;
 		}
 		else
 		{
-			place_pixel(start.x, start.y--, end, col);
+			place_pixel(fdf, (t_vect){start.x, start.y--}, end, col);
 			pk += 2 * delt.x;
 		}
 	}
+	printf("\n");
 }

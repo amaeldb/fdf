@@ -1,9 +1,9 @@
-SRCS	= test.c
+SRCS	= fdf.c draw.c check.c bres.c \
+			get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 OBJS	= ${SRCS:.c=.o}
 
-#FLAGS	= -Wall -Wextra -Werror
-FLAGS	= 
+FLAGS	= -Wall -Wextra -Werror
 
 NAME	= fdf
 

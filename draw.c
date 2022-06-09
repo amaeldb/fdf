@@ -84,4 +84,5 @@ void	draw(t_fdf *fdf)
 				draw_line(fdf, (t_vect){x, y - 1}, (t_vect){x, y});
 		}
 	}
+	mlx_put_img_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
 }

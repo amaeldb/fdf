@@ -95,10 +95,8 @@ int	check_too(int fd, t_fdf *fdf)
 		i = -1;
 		fdf->mat[++y] = calloc(fdf->dim.x, sizeof(int));
 		while (temp[++i] && temp[i][0] != '\n')
-		{
 			if (i == fdf->dim.x || set_mat(temp[i], fdf, y, i))
 				return (freee(temp, fdf, y, i));
-		}
 		if (i != fdf->dim.x)
 			return (freee(temp, fdf, y, i));
 		freee(temp, fdf, -1, -1);

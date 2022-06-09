@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-void	set_fdf(t_fdf *fdf)
+void	set_fdf(t_fdf *fdf, char *str)
 {
 	if (fdf->dim.x > fdf->dim.y)
 	{
@@ -30,6 +30,11 @@ void	set_fdf(t_fdf *fdf)
 	}
 	fdf->ang = 15 * M_PI / 180;
 	fdf->col_step = 255 / (fdf->max_z - fdf->min_z);
+	fdf->mlx = mlx_init();
+	fdf->win = mlx_new_window(fdf->mlx, 1000, 1000, str);
+	fdf->img = mlx_new_image(fdf->mlx, 1000, 1000);
+	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_pp,
+				&fdf->line_len, &fdf->endian);
 }
 
 int	main(int argc, char **argv)
@@ -42,7 +47,7 @@ int	main(int argc, char **argv)
 		free(fdf);
 		return (0);
 	}	
-	set_fdf(fdf);
+	set_fdf(fdf, argv[1]);
 	draw(fdf);
 
 
