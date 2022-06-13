@@ -5,6 +5,8 @@ OBJS	= ${SRCS:.c=.o}
 
 FLAGS	= -Wall -Wextra -Werror
 
+MLX		= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+
 NAME	= fdf
 
 %.o: %.c
@@ -15,7 +17,7 @@ all:	${NAME}
 ${NAME}:	${OBJS}
 	@ make -C libft --silent
 	@ make -C mlx_linux --silent
-	@ gcc ${FLAGS} ${OBJS} libft/libft.a -Lmlx_linux -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o ${NAME}
+	@ gcc ${FLAGS} -o ${NAME} ${OBJS} libft/libft.a ${MLX}
 	@ echo "Successfully compiled: ${NAME}"
 
 clean:	${OBJS}
