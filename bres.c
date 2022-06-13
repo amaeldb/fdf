@@ -6,7 +6,7 @@
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 16:47:43 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/13 16:27:14 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/13 18:35:27 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	place_pixel(t_fdf *fdf, t_vect pos, t_vect_three end, t_vect col)
 {
 	char	*point;
 
-	if (pos.x > -1 && pos.y > -1 && pos.x < 1000 && pos.y < 1000)
+	if (pos.x > -1 && pos.y > -1 && pos.x < 1920 && pos.y < 1080)
 	{
 		col.x += (float)col.y * ((float)(pos.y - end.z)
 					/ (float)(end.y - end.z));

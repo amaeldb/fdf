@@ -6,7 +6,7 @@
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 16:47:52 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/13 16:44:42 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/13 18:46:28 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,40 @@ void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 	t_vect_three	n_s;
 	t_vect_three	n_e;
 
-	//z.x = fdf->step / 10 * fdf->mat[start.y][start.x];
-	//z.y = fdf->step / 10 * fdf->mat[end.y][end.x];
-	n_s.z = fdf->mat[start.y][start.x];
-	n_e.z = fdf->mat[end.y][end.x];
+	// n_s.z = fdf->mat[start.y][start.x];
+	// n_e.z = fdf->mat[end.y][end.x];
+
+	// start = (t_vect){(int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500
+	// 				)) - (sin(fdf->ang) * (fdf->start.y + fdf->step * start.y
+	// 				- 500)) + 500), (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500
+	// 				)) + (sin(fdf->ang) * (fdf->start.x + fdf->step * start.x
+	// 				- 500)) + 500)};
+	// end = (t_vect){(int)((cos(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500))
+	// 		- (sin(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500)) + 500), 
+	// 		(int)((cos(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500))
+	// 		+ (sin(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) + 500)};
+	
+	// n_s = (t_vect_three){fdf->start.x + fdf->step * (start.x - start.y) * 2,
+	// 		fdf->start.y + fdf->step * (start.x + start.y) - fdf->mat[start.y][start.x] * fdf->step / 4, n_s.z};
+	// n_e = (t_vect_three){fdf->start.x + fdf->step * (end.x - end.y) * 2,
+	// 		fdf->start.y + fdf->step * (end.x + end.y) - fdf->mat[end.y][end.x] * fdf->step / 4, n_e.z};
+	
 	// n_s.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * start.x - 500
 	// 				)) - (sin(fdf->ang) * (fdf->start.y + fdf->step * start.y
 	// 				- 500)) + 500);
 	// n_s.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * start.y - 500
 	// 				)) + (sin(fdf->ang) * (fdf->start.x + fdf->step * start.x
-	// 				- 500)) + 500) + z.x * -5;
+	// 				- 500)) + 500);
 	// n_e.x = (int)((cos(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500))
 	// 		- (sin(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500))
 	// 		+ 500);
 	// n_e.y = (int)((cos(fdf->ang) * (fdf->start.y + fdf->step * end.y - 500))
-	// 		+ (sin(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) + 500)
-	// 	+ z.y * -5;
+	// 		+ (sin(fdf->ang) * (fdf->start.x + fdf->step * end.x - 500)) + 500);
+	
+	// BELOW IS GOOD !!!!
+	
+	n_s.z = fdf->mat[start.y][start.x];
+	n_e.z = fdf->mat[end.y][end.x];
 	n_s = (t_vect_three){fdf->start.x + fdf->step * (start.x - start.y) * 2,
 			fdf->start.y + fdf->step * (start.x + start.y) - fdf->mat[start.y][start.x] * fdf->step / 4, n_s.z};
 	n_e = (t_vect_three){fdf->start.x + fdf->step * (end.x - end.y) * 2,
@@ -77,7 +95,7 @@ void	draw(t_fdf *fdf)
 	int	y;
 
 	y = -1;
-	fdf->img = mlx_new_image(fdf->mlx, 1000, 1000);
+	fdf->img = mlx_new_image(fdf->mlx, 1920, 1080);
 	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_pp,
 				&fdf->line_len, &fdf->endian);
 	while (++y < fdf->dim.y)
@@ -93,5 +111,5 @@ void	draw(t_fdf *fdf)
 	}
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
 	mlx_destroy_image(fdf->mlx, fdf->img);
-	fdf->img = 0;
+	fdf->img = NULL;
 }
