@@ -6,7 +6,7 @@
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 16:47:55 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/14 13:16:19 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:22:14 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,41 +37,42 @@ int	modif(int key, t_fdf *fdf)
 		frexit(fdf);
 	else if (key == 65362 && (fdf->step / 10 + 1) < 2147483647)
 		fdf->step += fdf->step / 10 + 1;
-	else if (key == 65364 && fdf->step > 0)
+	else if (key == 65364 && fdf->step > 1)
 		fdf->step -= fdf->step / 10 + 1;
-	else if (key == 0xff25)
-		fdf->ang -= 15 * M_PI / 180;
-	else if (key == 0xff27)
-		fdf->ang += 15 * M_PI / 180;
 	else if (key == 100)
-		fdf->start.x += 50;
-	else if (key == 97)
 		fdf->start.x -= 50;
+	else if (key == 97)
+		fdf->start.x += 50;
 	else if (key == 119)
-		fdf->start.y -= 50;
-	else if (key == 115)
 		fdf->start.y += 50;
-	if (fdf->ang > 6.1 || fdf->ang < -6.1)
-		fdf->ang = 0;
+	else if (key == 115)
+		fdf->start.y -= 50;
 	draw(fdf);
 	return (0);
 }
 
+void	set_step(t_fdf *fdf)
+{
+	int	xx;
+	int	xy;
+	int	y;
+
+	fdf->step = 25;
+	while(--fdf->step)
+	{
+		xx = fdf->step * fdf->dim.x * 2;
+		xy = fdf->step * fdf->dim.y * 2;
+		y = fdf->step * (fdf->dim.x + fdf->dim.y - 2);
+		fdf->start.x = 960 - (xx - xy) / 2;
+		fdf->start.y = 540 - (y / 2);
+		if (fdf->step == 1 || (fdf->start.x + xx < 1920 && fdf->start.y + y < 1080))
+			break ;
+	}
+}
+
 void	set_fdf(t_fdf *fdf, char *str)
 {
-	if (fdf->dim.x > fdf->dim.y)
-	{
-		fdf->step = 300 / (fdf->dim.x - 1);
-		fdf->start = (t_vect){250, 450 + (fdf->step * (fdf->dim.x - fdf->dim.y))
-			/ 2};
-	}
-	else
-	{
-		fdf->step = 300 / (fdf->dim.y - 1);
-		fdf->start = (t_vect){450 + (fdf->step * (fdf->dim.y - fdf->dim.x))
-			/ 2, 250};
-	}
-	fdf->ang = 15 * M_PI / 180;
+	set_step(fdf);
 	fdf->col_step = 0;
 	if (fdf->max_z != fdf->min_z)
 		fdf->col_step = 255 / (fdf->max_z - fdf->min_z);

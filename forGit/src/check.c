@@ -6,7 +6,7 @@
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 16:47:49 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/14 13:15:17 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:31:04 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ int	check_arg(char *argv, t_fdf *fdf)
 {
 	int		fd;
 
-	fd = open(argv, O_RDWR);
+	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 		return (1);
 	fdf->dim.y = count_lines(fd, NULL);
 	close(fd);
 	fdf->dim.x = 0;
 	fdf->mat = ft_calloc(1, sizeof(int *) * fdf->dim.y);
-	fd = open(argv, O_RDWR);
+	fd = open(argv, O_RDONLY);
 	if (check_too(fd, fdf))
 	{
 		close(fd);
