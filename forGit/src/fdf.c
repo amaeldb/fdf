@@ -47,6 +47,8 @@ int	modif(int key, t_fdf *fdf)
 		fdf->start.y += 50;
 	else if (key == 115)
 		fdf->start.y -= 50;
+	else if (key == 99)
+		set_col(fdf);
 	draw(fdf);
 	return (0);
 }
@@ -82,6 +84,9 @@ void	set_fdf(t_fdf *fdf, char *str)
 	fdf->win = mlx_new_window(fdf->mlx, 1920, 1080, str);
 	if (!fdf->win)
 		frexit(fdf);
+	fdf->color.x = 65535;
+	fdf->color.y = 65536;
+	fdf->color.z = 0;
 }
 
 int	main(int argc, char **argv)
