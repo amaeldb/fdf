@@ -34,3 +34,14 @@ int	count_lines(int fd, char **strs)
 		continue ;
 	return (i);
 }
+
+void	set_col(t_fdf *fdf)
+{
+	int	base[7];
+	int	inc[7];
+	
+	if (++fdf->color.z == 7)
+		fdf->color.z = 0;
+	fdf->color.x = base[fdf->color.z];
+	fdf->color.y = inc[fdf->color.z];
+}
