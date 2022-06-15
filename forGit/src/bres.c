@@ -22,7 +22,7 @@ void	place_pixel(t_fdf *fdf, t_vect pos, t_vect_three end, t_vect col)
 				/ (float)(end.y - end.z));
 		point = fdf->addr + (((pos.y) * fdf->line_len)
 				+ (pos.x * fdf->bits_pp / 8));
-		*(unsigned int *)point = 0x0000FFFF + col.x * 65536;
+		*(unsigned int *)point = fdf->color.x + col.x * fdf->color.y;
 	}
 }
 
