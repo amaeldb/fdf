@@ -38,6 +38,7 @@ typedef struct s_fdf{
 	int		min_z;
 	int		max_z;
 	int		col_step;
+	t_vect_three	color;
 	void	*img;
 	char	*addr;
 	int		bits_pp;
@@ -54,6 +55,7 @@ void	bres_uu(t_fdf *fdf, t_vect_three start, t_vect_three end);
 void	bres_dr(t_fdf *fdf, t_vect_three start, t_vect_three end);
 void	bres_dd(t_fdf *fdf, t_vect_three start, t_vect_three end);
 int		count_lines(int fd, char **strs);
+void	set_col(t_fdf *fdf);
 
 void	*ft_calloc(size_t nmemb, size_t size);
 char	**ft_split(const char *s, char c);
