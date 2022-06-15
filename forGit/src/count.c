@@ -40,6 +40,8 @@ void	set_col(t_fdf *fdf)
 	int	base[7];
 	int	inc[7];
 	
+	base = {65535, 255, 16711935, 16711680, 16776960, 65280, 0};
+	inc = {65536, 65792, 256, 257, 1, 65537, 65793};
 	if (++fdf->color.z == 7)
 		fdf->color.z = 0;
 	fdf->color.x = base[fdf->color.z];
