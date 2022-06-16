@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 16:47:58 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/16 11:24:01 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/16 11:06:24 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
 # include "../mlx_linux/mlx.h"
 # include <fcntl.h>
@@ -55,6 +55,7 @@ void	bres_uu(t_fdf *fdf, t_vect_three start, t_vect_three end);
 void	bres_dr(t_fdf *fdf, t_vect_three start, t_vect_three end);
 void	bres_dd(t_fdf *fdf, t_vect_three start, t_vect_three end);
 int		count_lines(int fd, char **strs);
+void	set_col(t_fdf *fdf, int base[7], int inc[7]);
 
 void	*ft_calloc(size_t nmemb, size_t size);
 char	**ft_split(const char *s, char c);

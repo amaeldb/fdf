@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   fdf_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 16:47:55 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/16 11:23:18 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/16 11:06:03 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 int	frexit(t_fdf *fdf)
 {
@@ -35,6 +35,22 @@ int	modif(int key, t_fdf *fdf)
 {
 	if (key == 0xff1b)
 		frexit(fdf);
+	else if (key == 65362 && (fdf->step / 10 + 1) < 2147483647)
+		fdf->step += fdf->step / 10 + 1;
+	else if (key == 65364 && fdf->step > 1)
+		fdf->step -= fdf->step / 10 + 1;
+	else if (key == 100)
+		fdf->start.x -= 50;
+	else if (key == 97)
+		fdf->start.x += 50;
+	else if (key == 119)
+		fdf->start.y += 50;
+	else if (key == 115)
+		fdf->start.y -= 50;
+	else if (key == 99)
+		set_col(fdf, (int [7]){65535, 255, 16711935, 16711680, 16776960,
+			65280, 0}, (int [7]){65536, 65792, 256, 257, 1, 65537, 65793});
+	draw(fdf);
 	return (0);
 }
 

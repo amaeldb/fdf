@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count.c                                            :+:      :+:    :+:   */
+/*   count_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 13:14:45 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/16 11:23:55 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/16 11:06:06 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 int	count_lines(int fd, char **strs)
 {
@@ -33,4 +33,12 @@ int	count_lines(int fd, char **strs)
 	while (strs[++i] && strs[i][0] != '\n')
 		continue ;
 	return (i);
+}
+
+void	set_col(t_fdf *fdf, int base[7], int inc[7])
+{
+	if (++fdf->color.z == 7)
+		fdf->color.z = 0;
+	fdf->color.x = base[fdf->color.z];
+	fdf->color.y = inc[fdf->color.z];
 }
