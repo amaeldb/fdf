@@ -6,7 +6,7 @@
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 16:47:52 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/16 11:06:01 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/16 13:51:07 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	find_dir(t_fdf *fdf, t_vect_three start, t_vect_three end)
 	else if (delt_x > delt_y && delt_x < 1 && delt_y < 1)
 		bres_uu(fdf, end, start);
 	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1
-		&& delt_x > (delt_y * -1))
+		&& delt_x >= (delt_y * -1))
 		bres_dr(fdf, start, end);
 	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1
-		&& (delt_x * -1) > delt_y)
+		&& (delt_x * -1) >= delt_y)
 		bres_dr(fdf, end, start);
 	else if (delt_x >= delt_y && delt_x > -1 && delt_y < 1
-		&& (delt_y * -1) > delt_x)
+		&& (delt_y * -1) >= delt_x)
 		bres_dd(fdf, start, end);
 	else if (delt_x <= delt_y && delt_x < 1 && delt_y > -1)
 		bres_dd(fdf, end, start);

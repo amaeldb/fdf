@@ -6,7 +6,7 @@
 /*   By: ade-beta <ade-beta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 16:47:49 by ade-beta          #+#    #+#             */
-/*   Updated: 2022/06/16 11:06:08 by ade-beta         ###   ########.fr       */
+/*   Updated: 2022/06/16 15:19:49 by ade-beta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ int	freee(char **temp, t_fdf *fdf, int y, char *str)
 	int	i;
 
 	i = -1;
-	free(str);
-	while (temp[++i])
-		free(temp[i]);
-	free(temp);
+	if (str)
+		free(str);
+	if (temp)
+	{
+		while (temp[++i])
+			free(temp[i]);
+		free(temp);
+	}
 	if (y != -1)
 	{
 		i = -1;
@@ -102,11 +106,14 @@ int	check_arg(char *argv, t_fdf *fdf)
 		return (1);
 	fdf->dim.y = count_lines(fd, NULL);
 	close(fd);
+	if (!fdf->dim.y)
+		return (freee(NULL, fdf, -1, NULL));
 	fdf->dim.x = 0;
 	fdf->mat = ft_calloc(1, sizeof(int *) * fdf->dim.y);
 	fd = open(argv, O_RDONLY);
 	if (check_too(fd, fdf))
 	{
+		(void)count_lines(fd, NULL);
 		close(fd);
 		return (1);
 	}
